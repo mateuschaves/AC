@@ -9,6 +9,8 @@ public class Main {
     static final int CLR = 90;// <-- set the value in the AC to 0
     static final int ADDI = 95;// <-- add the value x to the AC
     static final int ADDM = 93;// <-- add the value in memory location y to AC
+    static final int SUB = 96; // <-- sub the value x to the AC
+    static final int MUL = 97;// <-- multiply the value x by AC
     static final int HALT = 100;// <-- instruction which halts the processor
     // ------------------------------------------------------------------
     // This procedure interprets programs for a simple machine. The machine
@@ -45,6 +47,12 @@ public class Main {
         if (opcode == ADDI) {
             return PC;
         }
+        if (opcode == SUB) {
+            return PC;
+        }
+        if (opcode == MUL) {
+            return PC;
+        }
         if (opcode == ADDM) {
             return memory[PC];
         } else
@@ -65,6 +73,14 @@ public class Main {
             AC = AC + data;
             System.out.println(AC);
         }
+        if (instr_type == SUB) {
+            AC = AC - data;
+            System.out.println(AC);
+        }
+        if (instr_type == MUL) {
+            AC = AC * data;
+            System.out.println(AC);
+        }
         if (instr_type == HALT) {
             run_bit = false;
         }
@@ -74,17 +90,21 @@ public class Main {
     public static void main(String[] args) {
         int m2[] = { 2, -5, 15, CLR, // "program" starts here
                 ADDI, 12, ADDI, 7, ADDM, 0, ADDM, 1, CLR, HALT };
-        System.out.println("Memory image 1: ");
-        interpret(m2, 3);// start at CLR
+        // System.out.println("Memory image 1: ");
+        // interpret(m2, 3);// start at CLR
 
         int m3[] = { 1, 3, 5, CLR, // "program" starts here
                 ADDI, 7, ADDM, 2, CLR, ADDM, 0, ADDM, 1, CLR, HALT };
-        System.out.println("Memory image 2: ");
-        interpret(m3, 3); // start at CLR
+        // System.out.println("Memory image 2: ");
+        // interpret(m3, 3); // start at CLR
 
         int m4[] = { 13, -5, 7, 8, CLR, // "program" starts here
                 ADDM, 1, 3, ADDM, 1, CLR, HALT };
-        System.out.println("Memory image 3: ");
-        interpret(m4, 4);
+        // System.out.println("Memory image 3: ");
+        // interpret(m4, 4);
+
+        int m5[] = { 0, -5, 7, 10, 5, CLR, ADDI, 5, SUB, 5, SUB, 2, MUL, 2, HALT };
+        System.out.println("Memory image 5: ");
+        interpret(m5, 5);
     }
 }
